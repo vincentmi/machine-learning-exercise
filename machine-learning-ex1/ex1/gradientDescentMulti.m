@@ -20,12 +20,12 @@ for iter = 1:num_iters
     temp = zeros(n,1);
 
 
-    for i = 1 : n,
-        temp(i) = theta(i) - alpha * (1/m) *sum((X*theta - y).*X(:,i));
-        end;
-
+    %for i = 1 : n,
+    %    temp(i) = theta(i) - alpha * (1/m) *sum((X*theta - y).*X(:,i));
+    %    end;
+   theta = theta - (alpha/m) * (X'*(X*theta -y));
     
-    theta = temp;
+    
 
 
     % ============================================================
