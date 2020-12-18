@@ -61,6 +61,51 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+a1 = [ones(m,1) X];
+z2 =  a1 * Theta1';
+a2 = sigmoid(z2);
+
+a2_0 = [ones(m,1) a2];
+
+z3 =  a2_0 * Theta2';
+a3 = sigmoid(z3);
+
+
+
+for i=1:m 
+    a1 = [1 X(i,:)];
+
+    z2 = a1 * Theta1';
+    a2 = sigmoid( z2);
+
+    z3 = [1  a2] * Theta2';
+    a3 = sigmoid( z3);
+
+    y_i = zeros(10,1);
+    yindex = y(i,1);
+    y_i(yindex,1) = 1;
+
+    j_i =  -1 / m  *  ( log(a3) * y_i   + log(1 - a3) *  (1 - y_i)) ;
+    
+    J += j_i;
+
+    d3 = a3' - y_i;
+    #d2 = Theta2' * d3 .* a3 * (1-a3);
+    #d1 = Theta1' * d2 .* a2 * (1-a2);
+
+endfor 
+
+
+Theta1_no_bias = Theta1(:,2:end);
+Theta2_no_bias = Theta2(:,2:end);
+
+
+regular = lambda / (2*m) * (sum(sum(Theta1_no_bias .^ 2)) + sum(sum(Theta2_no_bias .^ 2)));
+J+= regular
+
+
+
+
 
 
 

@@ -14,7 +14,9 @@ g = zeros(size(z));
 
 
 
+gz = 1./(1 + e.^-z);
 
+g = gz .* (1-gz);
 
 
 
