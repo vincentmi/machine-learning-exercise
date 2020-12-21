@@ -27,6 +27,8 @@ y  = 1 + mod(1:m, num_labels)';
 % Unroll parameters
 nn_params = [Theta1(:) ; Theta2(:)];
 
+size(Theta1)
+size(Theta2)
 
 % Short hand for cost function
 costFunc = @(p) nnCostFunction(p, input_layer_size, hidden_layer_size, ...
