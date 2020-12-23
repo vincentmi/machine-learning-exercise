@@ -113,10 +113,20 @@ Theta2_no_bias = Theta2(:,2:end);
 
 
 regular = lambda / (2*m) * (sum(sum(Theta1_no_bias .^ 2)) + sum(sum(Theta2_no_bias .^ 2)));
-J+= regular
+J+= regular;
 
-Theta1_grad = Delta1/m + Theta1 .* (lambda/m);
-Theta2_grad = Delta2/m + Theta2 .* (lambda/m);
+[m1,n1] = size(Theta1);
+[m2,n2] = size(Theta2);
+
+RegularMatrix1 = ones(m1,n1);
+RegularMatrix2 = ones(m2,n2);
+
+
+RegularMatrix1(:,1) = zeros(m1,1);
+RegularMatrix2(:,1) = zeros(m2,1);
+
+Theta1_grad = Delta1/m + RegularMatrix1.* Theta1 .* (lambda/m);
+Theta2_grad = Delta2/m + RegularMatrix2.* Theta2 .* (lambda/m);
 
 
 % -------------------------------------------------------------
